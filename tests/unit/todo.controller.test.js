@@ -19,6 +19,7 @@ describe('TodoController', () => {
   beforeEach(() => {
     req.body = newTodo;
   });
+
   it("should have a createTodo function", () => {
     expect(typeof TodoController.createTodo).toBe("function");
   });
@@ -28,15 +29,15 @@ describe('TodoController', () => {
     expect(TodoModel.create).toBeCalledWith(newTodo);
   });
 
-  it("should return status code 201", () => {
-    TodoController.createTodo(req, res, next);
+  it("should return status code 201", async () => {
+    await TodoController.createTodo(req, res, next);
     expect(res.statusCode).toBe(201);
     expect(res._isEndCalled()).toBeTruthy();
   });
 
-  it("should return json body in response", () => {
+  it("should return json body in response", async () => {
     TodoModel.create.mockReturnValue(newTodo);
-    TodoController.createTodo(req, res, next);
+    await TodoController.createTodo(req, res, next);
     expect(res._getJSONData()).toStrictEqual(newTodo);
   })
 });

@@ -1,10 +1,21 @@
 const express = require('express');
+const todoRoutes = require('./routes/todo.routes');
 const app = express();
+const mongodb = require('./mongodb/mongodb.connect');
 const PORT = 9000;
+
+mongodb.connect();
+
+app.use(express.json());
+app.use("/todos", todoRoutes);
+
+
 app.get('/', (req, res) => {
   res.json('Hello World!');
 });
 
 app.listen(PORT, () => {
   console.log(`Server running in port ${PORT}`)
-})
+});
+
+module.exports = app;
