@@ -6,6 +6,5 @@ exports.createTodo = async (req, res, next) => {
     res.status(201).json(createdModel);
   } catch(err) {
     next(err);
-    console.error(err)
   }
 }
